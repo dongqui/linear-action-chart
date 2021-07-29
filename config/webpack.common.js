@@ -9,6 +9,7 @@ module.exports = {
     path: path.build,
     filename: "[name].bundle.js",
     libraryTarget: "umd",
+    library: "linearChart",
   },
   module: {
     rules: [

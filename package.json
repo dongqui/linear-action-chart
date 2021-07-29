@@ -1,6 +1,6 @@
 {
   "name": "linear-action-chart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Linear chart with animation using canvas",
   "main": "dist/main.bundle.js",
   "scripts": {

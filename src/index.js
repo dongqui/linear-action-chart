@@ -16,10 +16,10 @@ const GRAPH_POINTER_COLOR = "#2AC1BC";
 const GRAPH_POINTER_HIGHLIGHT_COLOR = "#219A95";
 const GRAPH_LINE_COLOR = "#a0e1e0";
 const GRAPH_TEXT_COLOR = "#626666";
-const GRAPH_TEXT_HIGHLIGHT_COLOR = "#219A95";
+const GRAPH_TEXT_HIGHLIGHT_COLOR = "#626666";
 const GRAPH_X_VALUE_TEXT_COLOR = "#8D9393";
 
-const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize}) => {
+const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize }) => {
   const y = canvasHeight - Math.floor((yValue / yTopValue) * canvasHeight);
   const x = gridXSize * index * 2;
 
@@ -27,13 +27,7 @@ const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize}) => {
 };
 const canvasDrawBackground = (
   context,
-  {
-    backgroundColor,
-    canvasWidth,
-    canvasHeight,
-    gridXSize,
-    gridYSize,
-  }
+  { backgroundColor, canvasWidth, canvasHeight, gridXSize, gridYSize }
 ) => {
   context.fillStyle = backgroundColor;
   context.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -42,15 +36,9 @@ const canvasDrawBackground = (
 
 const canvasDrawGridPattern = (
   context,
-  {
-    canvasWidth,
-    canvasHeight,
-    gridXSize,
-    gridYSize,
-    gridStrokeColor,
-  }
+  { canvasWidth, canvasHeight, gridXSize, gridYSize, gridStrokeColor }
 ) => {
-  for (let x = 0; x < canvasWidth - gridXSize; x += GRID_gridXSizeX_SIZE) {
+  for (let x = 0; x < canvasWidth - gridXSize; x += gridXSize) {
     context.moveTo(x, 0);
     context.lineTo(x, canvasHeight);
     for (let y = 0; y <= canvasHeight; y += gridYSize) {
@@ -72,24 +60,27 @@ const canvasDrawXvalue = (
     highlightIndex,
     graphPointerHighlightColor,
     graphXValueTextColor,
-    xValues
+    xValues,
   }
 ) => {
   xValues.forEach((xValue, index) => {
     context.font = "12px Noto Sans KR";
-    context.fillStyle = highlightIndex === index
-      ? graphPointerHighlightColor
-      : graphXValueTextColor;
+    context.fillStyle =
+      highlightIndex === index
+        ? graphPointerHighlightColor
+        : graphXValueTextColor;
     context.fillText(
       xValue,
-      (xValue - 1) * gridXSize * gridXValueJump - GRID_X_VALUE_OFFSET,
+      index * gridXSize * gridXValueJump - GRID_X_VALUE_OFFSET,
       canvasHeight + GRID_Y_VALUE_OFFSET
     );
   });
 };
 
-const getVertices = (yTopValue, yValues) => {
-  return yValues.map((yValue, index) => getGraphXY(yTopValue, yValue, index));
+const getVertices = (yTopValue, yValues, canvasHeight, gridXSize) => {
+  return yValues.map((yValue, index) =>
+    getGraphXY({ yTopValue, yValue, index, canvasHeight, gridXSize })
+  );
 };
 
 const getWayPoints = (vertices) => {
@@ -108,7 +99,10 @@ const getWayPoints = (vertices) => {
   return waypoints;
 };
 
-const canvasDrawGraphPointer = (context, { x, y, ishighlight, graphPointerHighlightColor, graphPointerColor }) => {
+const canvasDrawGraphPointer = (
+  context,
+  { x, y, ishighlight, graphPointerHighlightColor, graphPointerColor }
+) => {
   context.fillStyle = ishighlight
     ? graphPointerHighlightColor
     : graphPointerColor;
@@ -117,16 +111,20 @@ const canvasDrawGraphPointer = (context, { x, y, ishighlight, graphPointerHighli
   context.fill();
 };
 
-const canvasDrawGraphLine = (context, { startX, startY, endX, endY }) => {
+const canvasDrawGraphLine = (
+  context,
+  { startX, startY, endX, endY, lineColor }
+) => {
   context.beginPath();
   context.moveTo(startX, startY);
   context.lineTo(endX, endY);
-  context.strokeStyle = GRAPH_LINE_COLOR;
+  context.strokeStyle = lineColor;
   context.lineWidth = 2;
   context.stroke();
 };
 
 const canvasDrawText = (context, { x, y, yValue, ishighlight, isEdge }) => {
+  console.log(ishighlight, GRAPH_TEXT_HIGHLIGHT_COLOR);
   context.font = "12px Noto Sans KR";
   context.fillStyle = ishighlight
     ? GRAPH_TEXT_HIGHLIGHT_COLOR
@@ -142,8 +140,20 @@ const isVertice = (vertice, wayPoint) =>
   (vertice[0] === wayPoint[0] && vertice[1] && wayPoint[1]) ||
   (vertice[0] === wayPoint[2] && vertice[1] && wayPoint[3]);
 
-const canvasDrawData = (context, { yTopValue, yValues, highlightIndex, graphPointerHighlightColor, graphPointerColor }) => {
-  const vertices = getVertices(yTopValue, yValues);
+const canvasDrawData = (
+  context,
+  {
+    yTopValue,
+    yValues,
+    highlightIndex,
+    graphPointerHighlightColor,
+    graphPointerColor,
+    canvasHeight,
+    gridXSize,
+    lineColor,
+  }
+) => {
+  const vertices = getVertices(yTopValue, yValues, canvasHeight, gridXSize);
   const waypoints = getWayPoints(vertices);
   let index = 0;
   const animateGraph = () => {
@@ -151,22 +161,27 @@ const canvasDrawData = (context, { yTopValue, yValues, highlightIndex, graphPoin
       return;
     }
     requestAnimationFrame(animateGraph);
-
     const [startX, startY] = waypoints.shift();
     const [endX, endY] = waypoints[0];
-    canvasDrawGraphLine(context, { startX, startY, endX, endY });
+    canvasDrawGraphLine(context, { startX, startY, endX, endY, lineColor });
     if (isVertice(vertices[index], [startX, startY, endX, endY])) {
       const ishighlight = highlightIndex === index;
       const isEdge = index === 0 || index === 11;
 
       canvasDrawText(context, {
-        x: ystartX,
+        x: startX,
         y: startY,
         yValue: yValues[index],
         ishighlight,
         isEdge,
       });
-      canvasDrawGraphPointer(context, { x: startX, y:startY, ishighlight, graphPointerHighlightColor, graphPointerColor });
+      canvasDrawGraphPointer(context, {
+        x: startX,
+        y: startY,
+        ishighlight,
+        graphPointerHighlightColor,
+        graphPointerColor,
+      });
       index += 1;
     }
   };
@@ -185,7 +200,6 @@ const initCanvas = (target) => {
 };
 
 const canvasDrawGraph = (context, option) => {
-  const context = initCanvas();
   canvasDrawBackground(context, option);
   canvasDrawGridPattern(context, option);
   canvasDrawXvalue(context, option);
@@ -198,11 +212,10 @@ const linearChart = (
   yValues,
   {
     isGrid = true,
-    lineColor,
+    lineColor = GRAPH_LINE_COLOR,
     highlightIndex,
     textColor,
     yTopValue,
-    yValues,
     backgroundColor = BACKGROUND_COLOR,
     canvasWidth = CANVAS_WIDTH,
     canvasHeight = CANVAS_HEIGHT,
@@ -212,18 +225,17 @@ const linearChart = (
     gridXValueJump = GRID_X_VALUE_JUMP,
     graphPointerHighlightColor = GRAPH_POINTER_HIGHLIGHT_COLOR,
     graphXValueTextColor = GRAPH_X_VALUE_TEXT_COLOR,
-    graphPointerColor = GRAPH_POINTER_COLOR
+    graphPointerColor = GRAPH_POINTER_COLOR,
   }
 ) => {
-  const canvas = document.getElementById(target);
-  const context = canvas.getContext("2d");
-  canvasDraw(context, {isGrid = true,
+  const context = initCanvas(target);
+  canvasDrawGraph(context, {
+    isGrid,
     xValues,
     yValues,
     lineColor,
     highlightIndex,
     textColor,
-    backgroundColor,
     yTopValue: yTopValue || Math.min(...yValues) + Math.max(...yValues),
     highlightIndex,
     backgroundColor,
@@ -236,9 +248,7 @@ const linearChart = (
     graphPointerHighlightColor,
     graphXValueTextColor,
     graphPointerColor,
-  })
+  });
 };
-
-
 
 export default linearChart;
