@@ -46,11 +46,24 @@ new LinearChart(
  }
 );
 ```
-<!-- ## options
+
+## options
 |               option | type     | default | description                                               |
 | -------------------: | :------- | :------ | :-------------------------------------------------------- |
-|     **`data.label`** | `string` | `0`     | The name or label of the donut.                           |
-|     **`data.value`** | `number` | `100`   | The value of the donut.                                   |
-|     **`data.color`** | `string` | `50`    | The color of the donut.                                   |
-|       **`holeSize`** | `number` | `0`     | (Optional) The hole size of the donut. Use `0-1` value.   |
-| **`animationSpeed`** | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. | -->
+|     **`isGrid`**     | `string` | `0`     | The name or label of the donut.                           |
+|     **`lineColor`**  | `number` | `100`   | The value of the donut.                                   |
+| **`highlightIndex`** | `string` | `50`    | The color of the donut.                                   |
+|      **`textColor`** | `number` | `0`     | (Optional) The hole size of the donut. Use `0-1` value.   |
+| **`yTopValue`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`highlightIndex`** | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`backgroundColor`**| `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`canvasWidth`**    | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`canvasHeight`**   | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`gridXSize`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`gridYSize`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`gridStrokeColor`**| `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`gridXValueJump`** | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`graphPointerHighlightColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`graphXValueTextColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`graphPointerColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+| **`wayPointsCount`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
