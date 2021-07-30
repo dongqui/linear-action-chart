@@ -47,23 +47,22 @@ new LinearChart(
 );
 ```
 
-## options
+## options 
 |               option | type     | default | description                                               |
 | -------------------: | :------- | :------ | :-------------------------------------------------------- |
-|     **`isGrid`**     | `string` | `0`     | The name or label of the donut.                           |
-|     **`lineColor`**  | `number` | `100`   | The value of the donut.                                   |
-| **`highlightIndex`** | `string` | `50`    | The color of the donut.                                   |
-|      **`textColor`** | `number` | `0`     | (Optional) The hole size of the donut. Use `0-1` value.   |
-| **`yTopValue`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`highlightIndex`** | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`backgroundColor`**| `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`canvasWidth`**    | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`canvasHeight`**   | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`gridXSize`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`gridYSize`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`gridStrokeColor`**| `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`gridXValueJump`** | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`graphPointerHighlightColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`graphXValueTextColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`graphPointerColor`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
-| **`wayPointsCount`**      | `number` | `1`     | (Optional) The speed of chart animation. Use `0-1` value. |
+|     **`isGrid`**     | `boolean` | `true`     | Show or Hide the background grid pattern                         |
+|     **`lineColor`**  | `string` | `#a0e1e0`   | Line color                                   |
+| **`highlightIndex`** | `string` | `undefined`    | Set the index to highlight                                   |
+|      **`textColor`** | `string` | `#626666`     | Text color   |
+| **`yTopValue`**      | `number` | `MaxY+MinY`     | Maximum y value |
+| **`backgroundColor`**| `string` | `#FCFCFC`     | Background color |
+| **`canvasWidth`**    | `number` | `792`     |  Canvas width |
+| **`canvasHeight`**   | `number` | `312`     |  Canvas height |
+| **`gridXSize`**      | `number` | `33`     |  The width of one grid unit |
+| **`gridYSize`**      | `number` | `26`     |  The height of one grid unit
+| **`gridStrokeColor`**| `string` | `#a0e1e0`     |  The color of the background grid pattern stroke |
+| **`gridXValueJump`** | `number` | `2`     |  The offset position of x value |
+| **`graphPointerHighlightColor`**      | `string` | `#219A95`     |  The color of highlighed pointer |
+| **`graphXValueTextColor`**      | `string` | `#8D9393`     |  The color of highlighed x value |
+| **`graphPointerColor`**      | `string` | `#2AC1BC`     |  Pointer color |
+| **`wayPointsCount`**      | `number` | `25`     |  The speed of chart animation |
