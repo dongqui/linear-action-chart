@@ -16,7 +16,7 @@ const GRAPH_POINTER_COLOR = "#2AC1BC";
 const GRAPH_POINTER_HIGHLIGHT_COLOR = "#219A95";
 const GRAPH_LINE_COLOR = "#a0e1e0";
 const GRAPH_TEXT_COLOR = "#626666";
-const GRAPH_TEXT_HIGHLIGHT_COLOR = "#626666";
+const GRAPH_TEXT_HIGHLIGHT_COLOR = "#2AC1BC";
 const GRAPH_X_VALUE_TEXT_COLOR = "#8D9393";
 
 const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize }) => {
@@ -83,16 +83,16 @@ const getVertices = (yTopValue, yValues, canvasHeight, gridXSize) => {
   );
 };
 
-const getWayPoints = (vertices) => {
+const getWayPoints = (vertices, wayPointsCount) => {
   const waypoints = [];
   for (let i = 1; i < vertices.length; i += 1) {
     const [startX, startY] = vertices[i - 1];
     const [endX, endY] = vertices[i];
     const distanceX = endX - startX;
     const distanceY = endY - startY;
-    for (let j = 0; j <= WAY_POINTS_COUNT; j += 1) {
-      const x = startX + (distanceX * j) / WAY_POINTS_COUNT;
-      const y = startY + (distanceY * j) / WAY_POINTS_COUNT;
+    for (let j = 0; j <= wayPointsCount; j += 1) {
+      const x = startX + (distanceX * j) / wayPointsCount;
+      const y = startY + (distanceY * j) / wayPointsCount;
       waypoints.push([x, y]);
     }
   }
@@ -124,7 +124,6 @@ const canvasDrawGraphLine = (
 };
 
 const canvasDrawText = (context, { x, y, yValue, ishighlight, isEdge }) => {
-  console.log(ishighlight, GRAPH_TEXT_HIGHLIGHT_COLOR);
   context.font = "12px Noto Sans KR";
   context.fillStyle = ishighlight
     ? GRAPH_TEXT_HIGHLIGHT_COLOR
@@ -151,10 +150,11 @@ const canvasDrawData = (
     canvasHeight,
     gridXSize,
     lineColor,
+    wayPointsCount,
   }
 ) => {
   const vertices = getVertices(yTopValue, yValues, canvasHeight, gridXSize);
-  const waypoints = getWayPoints(vertices);
+  const waypoints = getWayPoints(vertices, wayPointsCount);
   let index = 0;
   const animateGraph = () => {
     if (waypoints.length <= 1) {
@@ -216,6 +216,7 @@ const linearChart = (
     highlightIndex,
     textColor,
     yTopValue,
+    wayPointsCount = WAY_POINTS_COUNT,
     backgroundColor = BACKGROUND_COLOR,
     canvasWidth = CANVAS_WIDTH,
     canvasHeight = CANVAS_HEIGHT,
@@ -248,7 +249,18 @@ const linearChart = (
     graphPointerHighlightColor,
     graphXValueTextColor,
     graphPointerColor,
+    wayPointsCount,
   });
 };
+
+// linearChart(
+//   "target",
+//   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+//   [616929, 509637, 563283, 590106, 643752, 568647, 536460],
+//   {
+//     highlightIndex: 6,
+//     wayPointsCount: 10,
+//   }
+// );
 
 export default linearChart;
