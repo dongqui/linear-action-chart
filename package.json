@@ -1,6 +1,6 @@
 {
   "name": "linear-chart-js",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Linear chart with animation using canvas",
   "main": "dist/main.bundle.js",
   "scripts": {
