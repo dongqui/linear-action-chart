@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "linear-action-chart",
-  "version": "1.0.1",
-=======
-  "name": "linear-chart-js",
-  "version": "1.0.8",
->>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
+  "version": "1.0.9",
   "description": "Linear chart with animation using canvas",
   "main": "dist/main.bundle.js",
   "scripts": {
@@ -14,11 +9,7 @@
   },
   "repository": {
     "type": "git",
-<<<<<<< HEAD
-    "url": "git+https://github.com/dongqui/linear-action-chart.git"
-=======
     "url": "git+https://github.com/dongqui/linear-chart-js.git"
->>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   },
   "keywords": [
     "graph",
@@ -33,15 +24,9 @@
   "author": "Dongjin Kim",
   "license": "MIT",
   "bugs": {
-<<<<<<< HEAD
-    "url": "https://github.com/dongqui/linear-action-chart/issues"
+    "url": "https://github.com/dongqui/linear-chart/issues"
   },
-  "homepage": "https://github.com/dongqui/linear-action-chart#readme",
-=======
-    "url": "https://github.com/dongqui/linear-chart-js/issues"
-  },
-  "homepage": "https://github.com/dongqui/linear-chart-js#readme",
->>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
+  "homepage": "https://github.com/dongqui/linear-chart#readme",
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@babel/preset-env": "^7.14.8",
