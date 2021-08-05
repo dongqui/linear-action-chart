@@ -16,12 +16,19 @@ const GRAPH_POINTER_COLOR = "#2AC1BC";
 const GRAPH_POINTER_HIGHLIGHT_COLOR = "#219A95";
 const GRAPH_LINE_COLOR = "#a0e1e0";
 const GRAPH_TEXT_COLOR = "#626666";
+<<<<<<< HEAD
 const GRAPH_TEXT_HIGHLIGHT_COLOR = "#626666";
+=======
+const GRAPH_TEXT_HIGHLIGHT_COLOR = "#2AC1BC";
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
 const GRAPH_X_VALUE_TEXT_COLOR = "#8D9393";
 
 const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize }) => {
   const y = canvasHeight - Math.floor((yValue / yTopValue) * canvasHeight);
+<<<<<<< HEAD
   console.log(y);
+=======
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   const x = gridXSize * index * 2;
 
   return [x, y];
@@ -39,7 +46,10 @@ const canvasDrawGridPattern = (
   context,
   { canvasWidth, canvasHeight, gridXSize, gridYSize, gridStrokeColor }
 ) => {
+<<<<<<< HEAD
   console.log(canvasWidth);
+=======
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   for (let x = 0; x < canvasWidth - gridXSize; x += gridXSize) {
     context.moveTo(x, 0);
     context.lineTo(x, canvasHeight);
@@ -85,13 +95,18 @@ const getVertices = (yTopValue, yValues, canvasHeight, gridXSize) => {
   );
 };
 
+<<<<<<< HEAD
 const getWayPoints = (vertices) => {
+=======
+const getWayPoints = (vertices, wayPointsCount) => {
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   const waypoints = [];
   for (let i = 1; i < vertices.length; i += 1) {
     const [startX, startY] = vertices[i - 1];
     const [endX, endY] = vertices[i];
     const distanceX = endX - startX;
     const distanceY = endY - startY;
+<<<<<<< HEAD
     for (let j = 0; j <= WAY_POINTS_COUNT; j += 1) {
       const x = startX + (distanceX * j) / WAY_POINTS_COUNT;
       const y = startY + (distanceY * j) / WAY_POINTS_COUNT;
@@ -99,6 +114,14 @@ const getWayPoints = (vertices) => {
     }
   }
 
+=======
+    for (let j = 0; j <= wayPointsCount; j += 1) {
+      const x = startX + (distanceX * j) / wayPointsCount;
+      const y = startY + (distanceY * j) / wayPointsCount;
+      waypoints.push([x, y]);
+    }
+  }
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   return waypoints;
 };
 
@@ -153,10 +176,18 @@ const canvasDrawData = (
     canvasHeight,
     gridXSize,
     lineColor,
+<<<<<<< HEAD
   }
 ) => {
   const vertices = getVertices(yTopValue, yValues, canvasHeight, gridXSize);
   const waypoints = getWayPoints(vertices);
+=======
+    wayPointsCount,
+  }
+) => {
+  const vertices = getVertices(yTopValue, yValues, canvasHeight, gridXSize);
+  const waypoints = getWayPoints(vertices, wayPointsCount);
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   let index = 0;
   const animateGraph = () => {
     if (waypoints.length <= 1) {
@@ -191,6 +222,7 @@ const canvasDrawData = (
   animateGraph(context, waypoints);
 };
 
+<<<<<<< HEAD
 const initCanvas = (target, canvasWidth, canvasHeight) => {
   const canvas = target;
   const context = canvas.getContext("2d");
@@ -198,6 +230,14 @@ const initCanvas = (target, canvasWidth, canvasHeight) => {
   console.log(canvasWidth, canvasHeight);
   canvas.width = canvasWidth;
   canvas.height = canvasHeight;
+=======
+const initCanvas = (target) => {
+  const canvas = document.getElementById(target);
+  const context = canvas.getContext("2d");
+
+  canvas.width = CANVAS_WIDTH + 33;
+  canvas.height = CANVAS_HEIGHT + 26;
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
 
   return context;
 };
@@ -219,11 +259,20 @@ const linearChart = (
     highlightIndex,
     textColor,
     yTopValue,
+<<<<<<< HEAD
     canvasWidth = 750,
     canvasHeight = 450,
     backgroundColor = BACKGROUND_COLOR,
     gridXCount = GRID_X_COUNT,
     gridYCount = GRID_Y_COUNT,
+=======
+    wayPointsCount = WAY_POINTS_COUNT,
+    backgroundColor = BACKGROUND_COLOR,
+    canvasWidth = CANVAS_WIDTH,
+    canvasHeight = CANVAS_HEIGHT,
+    gridXSize = GRID_X_SIZE,
+    gridYSize = GRID_Y_SIZE,
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
     gridStrokeColor = GRID_STORKE_COLOR,
     gridXValueJump = GRID_X_VALUE_JUMP,
     graphPointerHighlightColor = GRAPH_POINTER_HIGHLIGHT_COLOR,
@@ -231,11 +280,15 @@ const linearChart = (
     graphPointerColor = GRAPH_POINTER_COLOR,
   }
 ) => {
+<<<<<<< HEAD
   const context = initCanvas(target, canvasWidth, canvasHeight);
   const gridXSize = canvasWidth / gridXCount;
   const gridYSize = canvasHeight / gridYCount;
 
   console.log(canvasHeight, gridXCount, gridXSize);
+=======
+  const context = initCanvas(target);
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
   canvasDrawGraph(context, {
     isGrid,
     xValues,
@@ -255,6 +308,7 @@ const linearChart = (
     graphPointerHighlightColor,
     graphXValueTextColor,
     graphPointerColor,
+<<<<<<< HEAD
   });
 };
 
@@ -268,5 +322,20 @@ linearChart(
     canvasHeight: 900,
   }
 );
+=======
+    wayPointsCount,
+  });
+};
+
+// linearChart(
+//   "target",
+//   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+//   [616929, 509637, 563283, 590106, 643752, 568647, 536460],
+//   {
+//     highlightIndex: 6,
+//     wayPointsCount: 10,
+//   }
+// );
+>>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
 
 export default linearChart;
