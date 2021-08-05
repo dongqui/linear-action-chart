@@ -21,6 +21,7 @@ const GRAPH_X_VALUE_TEXT_COLOR = "#8D9393";
 
 const getGraphXY = ({ yTopValue, yValue, index, canvasHeight, gridXSize }) => {
   const y = canvasHeight - Math.floor((yValue / yTopValue) * canvasHeight);
+  console.log(y);
   const x = gridXSize * index * 2;
 
   return [x, y];
@@ -38,6 +39,7 @@ const canvasDrawGridPattern = (
   context,
   { canvasWidth, canvasHeight, gridXSize, gridYSize, gridStrokeColor }
 ) => {
+  console.log(canvasWidth);
   for (let x = 0; x < canvasWidth - gridXSize; x += gridXSize) {
     context.moveTo(x, 0);
     context.lineTo(x, canvasHeight);
@@ -96,6 +98,7 @@ const getWayPoints = (vertices) => {
       waypoints.push([x, y]);
     }
   }
+
   return waypoints;
 };
 
@@ -124,7 +127,6 @@ const canvasDrawGraphLine = (
 };
 
 const canvasDrawText = (context, { x, y, yValue, ishighlight, isEdge }) => {
-  console.log(ishighlight, GRAPH_TEXT_HIGHLIGHT_COLOR);
   context.font = "12px Noto Sans KR";
   context.fillStyle = ishighlight
     ? GRAPH_TEXT_HIGHLIGHT_COLOR
@@ -189,12 +191,13 @@ const canvasDrawData = (
   animateGraph(context, waypoints);
 };
 
-const initCanvas = (target) => {
-  const canvas = document.getElementById(target);
+const initCanvas = (target, canvasWidth, canvasHeight) => {
+  const canvas = target;
   const context = canvas.getContext("2d");
 
-  canvas.width = CANVAS_WIDTH + 33;
-  canvas.height = CANVAS_HEIGHT + 26;
+  console.log(canvasWidth, canvasHeight);
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
 
   return context;
 };
@@ -216,11 +219,11 @@ const linearChart = (
     highlightIndex,
     textColor,
     yTopValue,
+    canvasWidth = 750,
+    canvasHeight = 450,
     backgroundColor = BACKGROUND_COLOR,
-    canvasWidth = CANVAS_WIDTH,
-    canvasHeight = CANVAS_HEIGHT,
-    gridXSize = GRID_X_SIZE,
-    gridYSize = GRID_Y_SIZE,
+    gridXCount = GRID_X_COUNT,
+    gridYCount = GRID_Y_COUNT,
     gridStrokeColor = GRID_STORKE_COLOR,
     gridXValueJump = GRID_X_VALUE_JUMP,
     graphPointerHighlightColor = GRAPH_POINTER_HIGHLIGHT_COLOR,
@@ -228,7 +231,11 @@ const linearChart = (
     graphPointerColor = GRAPH_POINTER_COLOR,
   }
 ) => {
-  const context = initCanvas(target);
+  const context = initCanvas(target, canvasWidth, canvasHeight);
+  const gridXSize = canvasWidth / gridXCount;
+  const gridYSize = canvasHeight / gridYCount;
+
+  console.log(canvasHeight, gridXCount, gridXSize);
   canvasDrawGraph(context, {
     isGrid,
     xValues,
@@ -250,5 +257,16 @@ const linearChart = (
     graphPointerColor,
   });
 };
+
+linearChart(
+  document.getElementById("target"), // canvas id
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  [5000, 3043, 4323, 4323, 4323, 2343],
+  {
+    highlightIndex: 6,
+    canvasWidth: 500,
+    canvasHeight: 900,
+  }
+);
 
 export default linearChart;
