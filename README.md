@@ -30,7 +30,7 @@ Create canvas element on your HTML
 then write script
 ```js
 new LinearChart(
- 'target, // canvas id
+ document.getElementById('target'),
  [1, 2, 3, 4, 5, 6, 7], // x values
  [2345, 3463, 2343, 2352], // y values
  {
