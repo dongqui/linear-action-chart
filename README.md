@@ -59,4 +59,4 @@ new LinearChart(
 | **`graphXValueTextColor`**      | `string` | `#8D9393`     |  The color of highlighed x value |
 | **`graphPointerColor`**      | `string` | `#2AC1BC`     |  Pointer color |
 | **`wayPointsCount`**      | `number` | `25`     |  The speed of chart animation |
->>>>>>> 69af5047c18dc7a8069e933738644274d835ce25
+
